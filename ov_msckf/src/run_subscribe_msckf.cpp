@@ -85,6 +85,12 @@ int main(int argc, char **argv) {
   params.use_multi_threading_subs = true;
   sys = std::make_shared<VioManager>(params);
 #if ROS_AVAILABLE == 1
+  // changed by su
+  nh->setParam("save_total_state", params.save_total_state);
+  nh->setParam("filepath_est", params.filepath_est);
+  nh->setParam("filepath_std", params.filepath_std);
+  nh->setParam("filepath_gt", params.filepath_gt);
+  
   viz = std::make_shared<ROS1Visualizer>(nh, sys);
   viz->setup_subscribers(parser);
 #elif ROS_AVAILABLE == 2

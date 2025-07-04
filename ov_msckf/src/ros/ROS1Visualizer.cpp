@@ -118,9 +118,10 @@ ROS1Visualizer::ROS1Visualizer(std::shared_ptr<ros::NodeHandle> nh, std::shared_
 
     // Open the files
     of_state_est.open(filepath_est.c_str());
-    of_state_std.open(filepath_std.c_str());
-    of_state_est << "# timestamp(s) q p v bg ba cam_imu_dt num_cam cam0_k cam0_d cam0_rot cam0_trans ... imu_model dw da tg wtoI atoI etc"
-                 << std::endl;
+    // of_state_std.open(filepath_std.c_str());
+    // of_state_est << "# timestamp(s) q p v bg ba cam_imu_dt num_cam cam0_k cam0_d cam0_rot cam0_trans ... imu_model dw da tg wtoI atoI etc"
+    //              << std::endl;
+    of_state_est << "# timestamp(s),p_x, p_y, p_z, q_x, q_y,q_z,q_w, v_x, v_y, v_z, bg_x,bg_y,bg_z,ba_x,ba_y,ba_z "<< std::endl;
     of_state_std << "# timestamp(s) q p v bg ba cam_imu_dt num_cam cam0_k cam0_d cam0_rot cam0_trans ... imu_model dw da tg wtoI atoI etc"
                  << std::endl;
 
@@ -233,6 +234,7 @@ void ROS1Visualizer::visualize() {
 
   // Save total state
   if (save_total_state) {
+    PRINT_DEBUG(BLUE "[VISUALIZER]:Successfully saved state to file\n" RESET);
     ROSVisualizerHelper::sim_save_total_state_to_file(_app->get_state(), _sim, of_state_est, of_state_std, of_state_gt);
   }
 

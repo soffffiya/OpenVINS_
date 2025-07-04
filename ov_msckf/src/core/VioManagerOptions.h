@@ -100,6 +100,18 @@ struct VioManagerOptions {
   /// The path to the file we will record the timing information into
   std::string record_timing_filepath = "ov_msckf_timing.txt";
 
+  // changed by su
+  /// The path to the file we will save the state estimate into
+  std::string filepath_est = "/tmp/ov_estimate.txt";
+
+  /// The path to the file we will save the state deviation into
+  std::string filepath_std = "/tmp/ov_estimate_std.txt";
+
+  /// The path to the file we will save the groundtruth into
+  std::string filepath_gt = "/tmp/ov_groundtruth.txt";
+  /// If we want to save all the states to the file
+  bool save_total_state = false;
+
   /**
    * @brief This function will load print out all estimator settings loaded.
    * This allows for visual checking that everything was loaded properly from ROS/CMD parsers.
@@ -119,6 +131,11 @@ struct VioManagerOptions {
       parser->parse_config("zupt_only_at_beginning", zupt_only_at_beginning);
       parser->parse_config("record_timing_information", record_timing_information);
       parser->parse_config("record_timing_filepath", record_timing_filepath);
+      // changed by su
+      parser->parse_config("save_total_state", save_total_state);
+      parser->parse_config("filepath_est", filepath_est);
+      parser->parse_config("filepath_std", filepath_std);
+      parser->parse_config("filepath_gt", filepath_gt);
     }
     PRINT_DEBUG("  - dt_slam_delay: %.1f\n", dt_slam_delay);
     PRINT_DEBUG("  - zero_velocity_update: %d\n", try_zupt);
